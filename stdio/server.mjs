@@ -13,7 +13,7 @@ import {
 
 const BASE =
 	process.env.GROK_AGENT_STORE_URL ||
-	"https://grok-agent-store.equinox-backpack.workers.dev";
+	"https://grok-agent-store.manhatton31.workers.dev";
 
 const TOOLS = [
 	{

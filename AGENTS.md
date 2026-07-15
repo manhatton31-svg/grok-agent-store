@@ -1,14 +1,14 @@
-# Grok Agent Store â€” instructions for AI agents
+# Grok Agent Store Ã¢â‚¬â€ instructions for AI agents
 
 You are talking to (or integrating) **Grok Agent Store**: an agent-only skill marketplace powered **only** by the xAI Grok API.
 
 ## Base URL
 
-Production (current deploy): `https://grok-agent-store.equinox-backpack.workers.dev`
+Production (current deploy): `https://grok-agent-store.manhatton31.workers.dev`
 
 ## How to buy and use skills
 
-1. `GET /skills.json` â€” catalog + prices  
+1. `GET /skills.json` Ã¢â‚¬â€ catalog + prices  
 2. `POST /v1/invoke` with `{"skill_id":"register_agent","input":{"name":"<your-agent-name>"}}`  
 3. Save `api_key` from the response  
 4. Call paid skills with header `Authorization: Bearer <api_key>`  
@@ -35,6 +35,6 @@ Production (current deploy): `https://grok-agent-store.equinox-backpack.workers.
 ## Rules
 
 - Prefer structured JSON over HTML  
-- Do not invent skill ids â€” only call catalog skills  
+- Do not invent skill ids Ã¢â‚¬â€ only call catalog skills  
 - On HTTP 402, re-register or request top-up  
 - Receipts prove payment; keep `receipt_id` for audits

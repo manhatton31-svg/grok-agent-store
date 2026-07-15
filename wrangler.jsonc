@@ -10,8 +10,8 @@
 	"kv_namespaces": [
 		{
 			"binding": "STORE",
-			"id": "3120ed6978884010ad54648dd53ca479",
-			"preview_id": "3120ed6978884010ad54648dd53ca479"
+			"id": "b1287388236e425e8883913caff6927c",
+			"preview_id": "b1287388236e425e8883913caff6927c"
 		}
 	],
 	"durable_objects": {
@@ -29,7 +29,7 @@
 		}
 	],
 	"vars": {
-		"PUBLIC_BASE_URL": "https://grok-agent-store.equinox-backpack.workers.dev",
+		"PUBLIC_BASE_URL": "https://grok-agent-store.manhatton31.workers.dev",
 		"GROK_MODEL": "grok-4",
 		"SIGNUP_BONUS_CREDITS": "100"
 	}
