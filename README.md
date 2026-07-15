@@ -4,22 +4,22 @@
 
 Buyer agents discover skills, register for credits, invoke Grok-backed tools, and receive signed receipts. Humans set the operator secrets; agents do the commerce.
 
-## 🤖 Agent: start here
+## ðŸ¤– Agent: start here
 
-**Master index:** https://grok-agent-store.chemical-lark.workers.dev/discovery.json
+**Master index:** https://grok-agent-store.equinox-backpack.workers.dev/discovery.json
 
 ```text
-MCP:     https://grok-agent-store.chemical-lark.workers.dev/mcp
-Skills:  https://grok-agent-store.chemical-lark.workers.dev/skills.json
-Card:    https://grok-agent-store.chemical-lark.workers.dev/.well-known/agent.json
-llms:    https://grok-agent-store.chemical-lark.workers.dev/llms.txt
-server:  https://grok-agent-store.chemical-lark.workers.dev/server.json
+MCP:     https://grok-agent-store.equinox-backpack.workers.dev/mcp
+Skills:  https://grok-agent-store.equinox-backpack.workers.dev/skills.json
+Card:    https://grok-agent-store.equinox-backpack.workers.dev/.well-known/agent.json
+llms:    https://grok-agent-store.equinox-backpack.workers.dev/llms.txt
+server:  https://grok-agent-store.equinox-backpack.workers.dev/server.json
 ```
 
 First call:
 
 ```bash
-curl -s https://grok-agent-store.chemical-lark.workers.dev/v1/invoke \
+curl -s https://grok-agent-store.equinox-backpack.workers.dev/v1/invoke \
   -H "content-type: application/json" \
   -d '{"skill_id":"register_agent","input":{"name":"my-buyer"}}'
 ```
@@ -92,16 +92,16 @@ Point Streamable HTTP MCP at `https://<your-host>/mcp` and send:
 
 ## Live deploy (current)
 
-**Public base:** https://grok-agent-store.chemical-lark.workers.dev
+**Public base:** https://grok-agent-store.equinox-backpack.workers.dev
 
 | Surface | URL |
 |---|---|
-| Skill graph | https://grok-agent-store.chemical-lark.workers.dev/skills.json |
-| Agent card | https://grok-agent-store.chemical-lark.workers.dev/.well-known/agent.json |
-| OpenAPI | https://grok-agent-store.chemical-lark.workers.dev/openapi.json |
-| llms.txt | https://grok-agent-store.chemical-lark.workers.dev/llms.txt |
-| REST invoke | `POST` https://grok-agent-store.chemical-lark.workers.dev/v1/invoke |
-| MCP | https://grok-agent-store.chemical-lark.workers.dev/mcp |
+| Skill graph | https://grok-agent-store.equinox-backpack.workers.dev/skills.json |
+| Agent card | https://grok-agent-store.equinox-backpack.workers.dev/.well-known/agent.json |
+| OpenAPI | https://grok-agent-store.equinox-backpack.workers.dev/openapi.json |
+| llms.txt | https://grok-agent-store.equinox-backpack.workers.dev/llms.txt |
+| REST invoke | `POST` https://grok-agent-store.equinox-backpack.workers.dev/v1/invoke |
+| MCP | https://grok-agent-store.equinox-backpack.workers.dev/mcp |
 
 This was launched with `wrangler deploy --temporary` (preview account). **Claim the account within 60 minutes** or the deploy can expire:
 
@@ -146,10 +146,10 @@ Update `PUBLIC_BASE_URL` to the custom domain.
 
 ## Architecture
 
-- **Code** — auth, metering, discovery, receipts (deterministic, free)
-- **Grok** — only LLM for paid skills (`api.x.ai`)
-- **KV** — agent balances + receipts
-- **Durable Object** — MCP session state (`GrokAgentStore`)
+- **Code** â€” auth, metering, discovery, receipts (deterministic, free)
+- **Grok** â€” only LLM for paid skills (`api.x.ai`)
+- **KV** â€” agent balances + receipts
+- **Durable Object** â€” MCP session state (`GrokAgentStore`)
 
 ## Roadmap
 

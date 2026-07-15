@@ -4,8 +4,8 @@ Bot on PR #10179 asked for Glama listing + badge.
 
 ## Done in repo
 
-- [x] `Dockerfile` — starts stdio MCP, answers `list_tools` with no secrets  
-- [x] `stdio/server.mjs` — proxies to hosted store  
+- [x] `Dockerfile` â€” starts stdio MCP, answers `list_tools` with no secrets  
+- [x] `stdio/server.mjs` â€” proxies to hosted store  
 - [x] `glama.json` metadata  
 - [x] Remote MCP already live at `/mcp`
 
@@ -25,11 +25,11 @@ Bot on PR #10179 asked for Glama listing + badge.
 ### B. Optional: hosted connector
 
 1. https://glama.ai/mcp/connectors  
-2. Add remote URL: `https://grok-agent-store.chemical-lark.workers.dev/mcp`  
+2. Add remote URL: `https://grok-agent-store.equinox-backpack.workers.dev/mcp`  
 3. Transport: streamable-http  
 
 ### C. PR badge (we can push this once A is green)
 
 ```markdown
-- [manhatton31-svg/grok-agent-store](https://github.com/manhatton31-svg/grok-agent-store) [![manhatton31-svg/grok-agent-store MCP server](https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store/badges/score.svg)](https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store) ☁️ 🏠 - Agent-only Grok skill marketplace...
+- [manhatton31-svg/grok-agent-store](https://github.com/manhatton31-svg/grok-agent-store) [![manhatton31-svg/grok-agent-store MCP server](https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store/badges/score.svg)](https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store) â˜ï¸ ðŸ  - Agent-only Grok skill marketplace...
 ```

@@ -4,8 +4,8 @@
   "repository": "https://github.com/manhatton31-svg/grok-agent-store",
   "dockerfile": "Dockerfile",
   "remote": {
-    "url": "https://grok-agent-store.chemical-lark.workers.dev/mcp",
+    "url": "https://grok-agent-store.equinox-backpack.workers.dev/mcp",
     "transport": "streamable-http"
   },
-  "homepage": "https://grok-agent-store.chemical-lark.workers.dev/discovery.json"
+  "homepage": "https://grok-agent-store.equinox-backpack.workers.dev/discovery.json"
 }

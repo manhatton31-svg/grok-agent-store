@@ -2,7 +2,7 @@
 	"name": "grok-agent-store",
 	"version": "1.0.0",
 	"private": false,
-	"description": "Agent-only Grok skill marketplace — remote MCP + REST store with credits and receipts",
+	"description": "Agent-only Grok skill marketplace â€” remote MCP + REST store with credits and receipts",
 	"mcpName": "io.github.manhatton31-svg/grok-agent-store",
 	"keywords": [
 		"mcp",
@@ -17,7 +17,7 @@
 		"type": "git",
 		"url": "https://github.com/manhatton31-svg/grok-agent-store.git"
 	},
-	"homepage": "https://grok-agent-store.chemical-lark.workers.dev",
+	"homepage": "https://grok-agent-store.equinox-backpack.workers.dev",
 	"bugs": {
 		"url": "https://github.com/manhatton31-svg/grok-agent-store/issues"
 	},
