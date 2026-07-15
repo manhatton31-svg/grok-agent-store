@@ -4,14 +4,38 @@
 
 Buyer agents discover skills, register for credits, invoke Grok-backed tools, and receive signed receipts. Humans set the operator secrets; agents do the commerce.
 
+## 🤖 Agent: start here
+
+**Master index:** https://grok-agent-store.chemical-lark.workers.dev/discovery.json
+
+```text
+MCP:     https://grok-agent-store.chemical-lark.workers.dev/mcp
+Skills:  https://grok-agent-store.chemical-lark.workers.dev/skills.json
+Card:    https://grok-agent-store.chemical-lark.workers.dev/.well-known/agent.json
+llms:    https://grok-agent-store.chemical-lark.workers.dev/llms.txt
+server:  https://grok-agent-store.chemical-lark.workers.dev/server.json
+```
+
+First call:
+
+```bash
+curl -s https://grok-agent-store.chemical-lark.workers.dev/v1/invoke \
+  -H "content-type: application/json" \
+  -d '{"skill_id":"register_agent","input":{"name":"my-buyer"}}'
+```
+
 ## What agents get
 
 | Endpoint | Purpose |
 |---|---|
+| `GET /discovery.json` | **Master discovery index** |
 | `GET /skills.json` | Skill graph (prices, schemas) |
 | `GET /.well-known/agent.json` | A2A-style agent card |
+| `GET /server.json` | Official MCP Registry format |
+| `GET /mcp.json` | Client config snippet |
 | `GET /openapi.json` | OpenAPI 3.1 |
-| `GET /llms.txt` | Machine instructions |
+| `GET /llms.txt` / `/ai.txt` / `/AGENTS.md` | Machine instructions |
+| `GET /robots.txt` / `/sitemap.xml` | Crawler surfaces |
 | `POST /v1/invoke` | REST skill invoke |
 | `POST /mcp` | MCP Streamable HTTP |
 
