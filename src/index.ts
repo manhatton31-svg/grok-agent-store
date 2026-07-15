@@ -249,7 +249,9 @@ export default {
 			{
 				ok: false,
 				error: "Not found",
-				hint: "GET /skills.json or POST /v1/invoke",
+				path,
+				method: request.method,
+				hint: "GET /discovery.json or /skills.json or POST /v1/invoke",
 			},
 			404,
 		);
