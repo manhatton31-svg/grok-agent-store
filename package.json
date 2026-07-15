@@ -1,0 +1,45 @@
+{
+	"name": "grok-agent-store",
+	"version": "1.0.0",
+	"private": false,
+	"description": "Agent-only Grok skill marketplace — remote MCP + REST store with credits and receipts",
+	"mcpName": "io.github.manhatton31-svg/grok-agent-store",
+	"keywords": [
+		"mcp",
+		"agent",
+		"marketplace",
+		"grok",
+		"xai",
+		"agent-commerce",
+		"a2a"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/manhatton31-svg/grok-agent-store.git"
+	},
+	"homepage": "https://grok-agent-store.chemical-lark.workers.dev",
+	"bugs": {
+		"url": "https://github.com/manhatton31-svg/grok-agent-store/issues"
+	},
+	"license": "MIT",
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.12.4",
+		"@cloudflare/workers-types": "^5.20260715.1",
+		"@types/node": "^26.1.1",
+		"typescript": "^5.5.2",
+		"vitest": "~3.2.0",
+		"wrangler": "^4.111.0"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.29.0",
+		"agents": "^0.17.4",
+		"zod": "^4.4.3"
+	}
+}

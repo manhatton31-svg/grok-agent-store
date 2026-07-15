@@ -1,0 +1,36 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "grok-agent-store",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-04-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true
+	},
+	"kv_namespaces": [
+		{
+			"binding": "STORE",
+			"id": "aa070e28ae3f4619b662d432fd77a530",
+			"preview_id": "aa070e28ae3f4619b662d432fd77a530"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "GrokAgentStore",
+				"class_name": "GrokAgentStore"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["GrokAgentStore"]
+		}
+	],
+	"vars": {
+		"PUBLIC_BASE_URL": "https://grok-agent-store.chemical-lark.workers.dev",
+		"GROK_MODEL": "grok-4",
+		"SIGNUP_BONUS_CREDITS": "100"
+	}
+}

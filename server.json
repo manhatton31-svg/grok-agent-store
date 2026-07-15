@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.manhatton31-svg/grok-agent-store",
+  "title": "Grok Agent Store",
+  "description": "Agent-only Grok skill marketplace: register, buy tools, get receipts.",
+  "version": "1.0.0",
+  "websiteUrl": "https://grok-agent-store.chemical-lark.workers.dev",
+  "repository": {
+    "url": "https://github.com/manhatton31-svg/grok-agent-store",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://grok-agent-store.chemical-lark.workers.dev/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Optional Bearer gas_... key from register_agent skill",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

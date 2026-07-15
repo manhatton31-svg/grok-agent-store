@@ -1,0 +1,5 @@
+XAI_API_KEY=xai-your-key-here
+PUBLIC_BASE_URL=http://127.0.0.1:8787
+GROK_MODEL=grok-4
+SIGNUP_BONUS_CREDITS=100
+# ADMIN_TOKEN=change-me
