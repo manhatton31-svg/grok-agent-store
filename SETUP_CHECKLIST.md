@@ -1,0 +1,138 @@
+# Step-by-step: Glama PR + real payments
+
+**Live base (current preview):**  
+https://grok-agent-store.equinox-backpack.workers.dev
+
+**Claim Cloudflare (do this first so the host does not expire):**  
+https://dash.cloudflare.com/claim-preview?claimToken=OsiuV1bU4tOWiIQ4pXylo5LyG18G6SblENlImPYsBfc
+
+After claim, optional permanent deploy:
+
+```bash
+cd grok-agent-store
+npx wrangler login
+npx wrangler kv namespace create STORE
+# paste new id into wrangler.jsonc
+# set PUBLIC_BASE_URL to your permanent workers.dev URL
+npx wrangler deploy
+```
+
+---
+
+## Part A — Unblock awesome-mcp-servers PR (Glama)
+
+### Already done for you
+
+- Dockerfile + stdio MCP (starts, answers `list_tools` with no secrets)
+- Badge line added to PR #10179  
+- PR comments with remote URL + Dockerfile note  
+- Repo public: https://github.com/manhatton31-svg/grok-agent-store
+
+### Your 3 minutes in the browser
+
+1. Open https://glama.ai/mcp/servers → sign in with GitHub  
+2. **Add Server** → repo `https://github.com/manhatton31-svg/grok-agent-store`  
+3. Dockerfile path: `Dockerfile`  
+4. Wait until checks pass (server starts + introspection)  
+5. Confirm listing: https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store  
+6. Optional: https://glama.ai/mcp/connectors → add remote  
+   `https://grok-agent-store.equinox-backpack.workers.dev/mcp` (streamable-http)  
+7. Reply on the PR: “Glama checks green”  
+
+Badge format already in PR:
+
+```text
+https://glama.ai/mcp/servers/manhatton31-svg/grok-agent-store/badges/score.svg
+```
+
+---
+
+## Part B — Accept payments (Stripe)
+
+### Money model
+
+1. Agent calls `register_agent` → free bonus credits  
+2. Agent calls `purchase_credits` → Stripe Checkout URL  
+3. Principal pays with card  
+4. Stripe webhook tops up agent balance  
+5. Agent spends credits on Grok skills  
+
+Packs: `starter` $5/100 · `pro` $20/500 · `scale` $60/2000
+
+### Secrets to set
+
+```bash
+cd grok-agent-store
+
+# 1) Grok (paid skills)
+npx wrangler secret put XAI_API_KEY --temporary
+# paste from https://console.x.ai
+
+# 2) Stripe
+npx wrangler secret put STRIPE_SECRET_KEY --temporary
+# sk_test_... first
+
+npx wrangler secret put STRIPE_WEBHOOK_SECRET --temporary
+# whsec_... from Stripe webhook endpoint
+
+npx wrangler deploy --temporary
+```
+
+### Stripe Dashboard
+
+1. https://dashboard.stripe.com/test/apikeys → Secret key  
+2. Developers → Webhooks → Add endpoint  
+   - URL: `https://grok-agent-store.equinox-backpack.workers.dev/v1/webhooks/stripe`  
+   - Event: `checkout.session.completed`  
+3. Copy signing secret → `STRIPE_WEBHOOK_SECRET`
+
+### Smoke test
+
+```bash
+BASE=https://grok-agent-store.equinox-backpack.workers.dev
+
+curl -s $BASE/v1/invoke -H "content-type: application/json" \
+  -d '{"skill_id":"register_agent","input":{"name":"payer-1"}}'
+# save api_key
+
+curl -s $BASE/v1/invoke -H "content-type: application/json" \
+  -d '{"skill_id":"list_credit_packs","input":{}}'
+
+curl -s $BASE/v1/invoke \
+  -H "content-type: application/json" \
+  -H "Authorization: Bearer gas_YOUR_KEY" \
+  -d '{"skill_id":"purchase_credits","input":{"pack":"starter"}}'
+# open checkout_url, pay with Stripe test card 4242...
+
+curl -s $BASE/v1/invoke \
+  -H "Authorization: Bearer gas_YOUR_KEY" \
+  -H "content-type: application/json" \
+  -d '{"skill_id":"balance","input":{}}'
+```
+
+Test card: `4242 4242 4242 4242`, any future expiry, any CVC.
+
+---
+
+## Part C — Agent revenue loop
+
+| Who | Action |
+|-----|--------|
+| Buyer agent | `register_agent` → `purchase_credits` → use skills |
+| You | Receive Stripe payouts; cover Grok token cost from margin |
+| Platform | Charges credits per skill (see `/skills.json`) |
+
+Suggested margins (already coded): skills cost 5–25 credits; packs sell ~$0.03–0.05/credit.
+
+---
+
+## Order of operations (recommended)
+
+1. **Claim Cloudflare** (so URL stays alive)  
+2. **Glama Add Server** (so PR can merge)  
+3. **Stripe test keys + webhook**  
+4. **XAI_API_KEY**  
+5. Full smoke test (register → pay → Grok skill)  
+6. Switch Stripe to live keys when ready  
+
+Docs in repo: `GLAMA.md`, `PAYMENTS.md`, this file.
