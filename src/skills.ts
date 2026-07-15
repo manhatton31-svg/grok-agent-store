@@ -75,6 +75,38 @@ export const SKILLS: Skill[] = [
 		verify: { type: "schema", note: "Auth required" },
 	},
 	{
+		id: "list_credit_packs",
+		name: "List credit packs",
+		description: "List purchasable credit packs and USD prices (Stripe).",
+		category: "account",
+		price: { credits: 0, currency: "credits", description: "Free" },
+		inputs: {},
+		outputs: { type: "json", description: "Array of packs with price_usd and credits" },
+		auth_required: false,
+		verify: { type: "schema", note: "Static pack list" },
+	},
+	{
+		id: "purchase_credits",
+		name: "Purchase credits",
+		description:
+			"Create a Stripe Checkout URL to buy credits for this agent. Principal pays; webhook tops up balance.",
+		category: "account",
+		price: { credits: 0, currency: "credits", description: "Free (charges via Stripe)" },
+		inputs: {
+			pack: {
+				type: "string",
+				description: "starter | pro | scale",
+				required: true,
+			},
+		},
+		outputs: {
+			type: "json",
+			description: "checkout_url, session_id, credits",
+		},
+		auth_required: true,
+		verify: { type: "schema", note: "Requires STRIPE_SECRET_KEY on server" },
+	},
+	{
 		id: "agent_brief",
 		name: "Agent brief",
 		description:

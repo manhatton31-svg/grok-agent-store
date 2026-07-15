@@ -18,6 +18,11 @@ import {
 import { skillGraphPublic } from "./skills";
 import { GrokAgentStore } from "./mcp";
 import { extractBearer, getAgentByKey, saveAgent } from "./auth";
+import {
+	handleStripeWebhook,
+	payCancelHtml,
+	paySuccessHtml,
+} from "./payments";
 
 export { GrokAgentStore };
 
@@ -211,6 +216,22 @@ export default {
 						? 401
 						: 400;
 			return json(result, status);
+		}
+
+		// Stripe webhook (public; signature verified)
+		if (request.method === "POST" && path === "/v1/webhooks/stripe") {
+			return handleStripeWebhook(env, request);
+		}
+
+		if (request.method === "GET" && path === "/pay/success") {
+			return new Response(paySuccessHtml(publicBase(env, request)), {
+				headers: { "content-type": "text/html; charset=utf-8" },
+			});
+		}
+		if (request.method === "GET" && path === "/pay/cancel") {
+			return new Response(payCancelHtml(publicBase(env, request)), {
+				headers: { "content-type": "text/html; charset=utf-8" },
+			});
 		}
 
 		// Admin top-up (optional)

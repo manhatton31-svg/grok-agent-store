@@ -22,12 +22,17 @@
 		"url": "https://github.com/manhatton31-svg/grok-agent-store/issues"
 	},
 	"license": "MIT",
+	"bin": {
+		"grok-agent-store": "stdio/server.mjs"
+	},
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
-		"start": "wrangler dev",
+		"start": "node stdio/server.mjs",
+		"start:worker": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"stdio": "node stdio/server.mjs"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.12.4",

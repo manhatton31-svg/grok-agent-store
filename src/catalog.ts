@@ -9,6 +9,7 @@ import {
 } from "./auth";
 import { callGrok, parseJsonLoose } from "./grok";
 import { randomToken } from "./auth";
+import { createCheckoutSession, listPacks } from "./payments";
 
 export type InvokeInput = Record<string, unknown>;
 
@@ -119,6 +120,20 @@ export async function invokeSkill(
 			};
 		}
 
+		if (skillId === "list_credit_packs") {
+			return {
+				ok: true,
+				skill_id: skillId,
+				result: {
+					packs: listPacks(),
+					currency: "USD",
+					payment: "stripe_checkout",
+					next: "Call purchase_credits with pack id after register_agent",
+				},
+				credits_charged: 0,
+			};
+		}
+
 		if (skillId === "register_agent") {
 			const name = requireString(input, "name");
 			const { agent, api_key } = await registerAgent(env, name);
@@ -136,6 +151,7 @@ export async function invokeSkill(
 					rest_invoke: `${base}/v1/invoke`,
 					skills_url: `${base}/skills.json`,
 					agent_card_url: `${base}/.well-known/agent.json`,
+					buy_credits: "skill:purchase_credits",
 					note: "Store api_key securely. It is shown only once.",
 				},
 				credits_charged: 0,
@@ -177,6 +193,36 @@ export async function invokeSkill(
 					balance: agent.balance,
 					total_spent: agent.total_spent,
 					total_calls: agent.total_calls,
+				},
+				credits_charged: 0,
+				balance: agent.balance,
+			};
+		}
+
+		if (skillId === "purchase_credits") {
+			const pack =
+				typeof input.pack === "string" ? input.pack : "starter";
+			const checkout = await createCheckoutSession(
+				env,
+				request || new Request("https://localhost/"),
+				apiKey,
+				pack,
+			);
+			if (!checkout.ok) {
+				return {
+					ok: false,
+					skill_id: skillId,
+					result: null,
+					error: checkout.error,
+				};
+			}
+			return {
+				ok: true,
+				skill_id: skillId,
+				result: {
+					...checkout,
+					instructions:
+						"Open checkout_url in a browser (or hand to principal). After payment, call balance to confirm credits.",
 				},
 				credits_charged: 0,
 				balance: agent.balance,

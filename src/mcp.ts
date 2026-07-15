@@ -101,6 +101,43 @@ export class GrokAgentStore extends McpAgent<Env, unknown, Props> {
 		);
 
 		this.server.tool(
+			"list_credit_packs",
+			"List Stripe credit packs and USD prices (free).",
+			{},
+			async () => {
+				const out = await invokeSkill(
+					this.getEnv(),
+					"list_credit_packs",
+					{},
+					this.asRequest(),
+				);
+				return textResult(out);
+			},
+		);
+
+		this.server.tool(
+			"purchase_credits",
+			"Create Stripe Checkout URL to buy credits (auth).",
+			{
+				api_key: z.string().describe("API key from register_agent"),
+				pack: z
+					.string()
+					.optional()
+					.describe("starter | pro | scale"),
+			},
+			async ({ api_key, pack }) => {
+				const out = await invokeSkill(
+					this.getEnv(),
+					"purchase_credits",
+					{ pack: pack || "starter", api_key },
+					this.asRequest(api_key),
+					api_key,
+				);
+				return textResult(out);
+			},
+		);
+
+		this.server.tool(
 			"agent_brief",
 			"Grok: turn a messy goal into a structured brief (10 credits).",
 			{

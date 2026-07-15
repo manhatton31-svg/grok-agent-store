@@ -7,6 +7,10 @@ export interface Env {
 	SIGNUP_BONUS_CREDITS: string;
 	/** Comma-separated admin tokens that can top up balances */
 	ADMIN_TOKEN?: string;
+	/** Stripe secret key (sk_live_... or sk_test_...) */
+	STRIPE_SECRET_KEY?: string;
+	/** Stripe webhook signing secret (whsec_...) */
+	STRIPE_WEBHOOK_SECRET?: string;
 }
 
 export type SkillPrice = {
