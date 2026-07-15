@@ -169,3 +169,7 @@ dist
 body.json
 reg.json
 *.log
+
+mcp-publisher.exe
+mcp-publisher.tar.gz
+mcp-publisher
